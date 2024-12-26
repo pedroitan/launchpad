@@ -1,0 +1,73 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    background-image: url('https://oaidalleapiprodscus.blob.core.windows.net/private/org-ct6DYQ7ydO5RjFIlW1Ub3Qkw/user-JqUZtNIBvWgqxOPpJqxWzqRa/img-generated-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.music-pad {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.music-pad:hover {
+    transform: scale(1.05);
+}
+
+.music-pad.active {
+    background-color: #2ecc71;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+#pad1 { background-color: #FF6B6B; }
+#pad2 { background-color: #4ECDC4; }
+#pad3 { background-color: #45B7D1; }
+#pad4 { background-color: #FDCB6E; }
+
+.music-pad:active, .music-pad.active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tempo-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.tempo-control input[type="range"] {
+    width: 200px;
+}
+
+.tempo-control span {
+    font-weight: bold;
+    min-width: 40px;
+    text-align: right;
+}

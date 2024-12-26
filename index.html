@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITAN MusicBox</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .pads-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .sliders-row {
+            display: flex;
+            margin-top: 50px;
+            gap: 30px;
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vertical-slider {
+            writing-mode: bt-lr;
+            transform: rotate(270deg);
+            margin: 40px 0;
+        }
+
+        .music-pad {
+            cursor: pointer;
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            background: #f0f0f0;
+            border: 2px solid #ddd;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .music-pad:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+
+        .music-pad.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #45a049;
+            animation: pulseGlow 2s infinite;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(76, 175, 80, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+            }
+        }
+
+        .mute-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .mute-button.muted {
+            background-color: #f44336;
+        }
+
+        .mute-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        .bpm-display {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #666;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 6px;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .master-bpm-control {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: #ddd;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="pads-row">
+            <div class="music-pad" id="pad1" data-sound="sound1.wav">♩</div>
+            <div class="music-pad" id="pad2" data-sound="sound2.wav">♪</div>
+            <div class="music-pad" id="pad3" data-sound="sound3.wav">♫</div>
+            <div class="music-pad" id="pad4" data-sound="sound4.wav">♬</div>
+        </div>
+        <div class="sliders-row">
+            <div class="slider-container">
+                <input type="range" min="0" max="1" step="0.01" value="1" class="volume-slider vertical-slider" id="slider1" />
+                <button class="mute-button" id="mute1">Unmuted</button>
+            </div>
+            <div class="slider-container">
+                <input type="range" min="0" max="1" step="0.01" value="1" class="volume-slider vertical-slider" id="slider2" />
+                <button class="mute-button" id="mute2">Unmuted</button>
+            </div>
+            <div class="slider-container">
+                <input type="range" min="0" max="1" step="0.01" value="1" class="volume-slider vertical-slider" id="slider3" />
+                <button class="mute-button" id="mute3">Unmuted</button>
+            </div>
+            <div class="slider-container">
+                <input type="range" min="0" max="1" step="0.01" value="1" class="volume-slider vertical-slider" id="slider4" />
+                <button class="mute-button" id="mute4">Unmuted</button>
+            </div>
+        </div>
+        <audio id="audio1" src="sound1.wav" preload="auto"></audio>
+        <audio id="audio2" src="sound2.wav" preload="auto"></audio>
+        <audio id="audio3" src="sound3.wav" preload="auto"></audio>
+        <audio id="audio4" src="sound4.wav" preload="auto"></audio>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
